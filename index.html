@@ -1,144 +1,24 @@
-<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google" value="notranslate"><meta name="description" content="TurboWarp is a Scratch mod with a compiler to run projects faster, dark mode for your eyes, a bunch of addons to improve the editor, and more."/><title>TurboWarp - Run Scratch projects faster</title><link rel="apple-touch-icon" href="/images/apple-touch-icon.png"><link rel="manifest" href="/manifest.webmanifest"><style>.splash-screen {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      }
-      .splash-screen[hidden] {
-        display: none;
-      }
-      .splash-screen[data-theme="dark"] {
-        background-color: #333;
-        color: white;
-      }
-      .splash-screen > * {
-        max-width: 80%;
-      }
-      .splash-spinner:after {
-        content: " ";
-        display: block;
-        width: 64px;
-        height: 64px;
-        border-radius: 50%;
-        border: 6px solid;
-        border-color: currentColor transparent currentColor transparent;
-        animation: splash-spinner 1.2s linear infinite;
-      }
-      @keyframes splash-spinner {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-      .splash-error-title {
-        font-weight: bold;
-      }
-      .splash-error-title a {
-        color: inherit;
-      }
-      .splash-errors {
-        font-family: monospace;
-      }
-      .splash-error-list {
-        white-space: pre-wrap;
-      }
-      .splash-reset {
-        color: inherit;
-        background: none;
-        padding: 0;
-        margin: 0;
-        border: none;
-        text-decoration: underline;
-        cursor: pointer;
-      }
-      .splash-reset:disabled {
-        opacity: 0.8;
-      }</style></head><body><noscript><div class="splash-screen"><div><h1>TurboWarp requires JavaScript</h1><p>Consider using <a href="https://desktop.turbowarp.org/">TurboWarp Desktop</a> if you are afraid of remote JavaScript.</p></div></div></noscript><div class="splash-screen spash-waiting-for-js" hidden><div class="splash-spinner"></div><div class="splash-error-title" hidden>Something went wrong. <a href="https://scratch.mit.edu/users/GarboMuffin/#comments" target="_blank" rel="noreferrer">Please report</a> with the information below.</div><div class="splash-errors" hidden></div><button class="splash-reset" hidden>Click here to reset caches (can fix some errors)</button></div><script>(function () {
-        'use strict';
-
-        var theme = '';
-        var accent = '#ff4c4c';
-
-        try {
-          var themeSetting = localStorage.getItem('tw:theme');
-        } catch (e) {
-          // ignore
-        }
-        if (themeSetting === 'light') {
-          theme = 'light';
-        } else if (themeSetting === 'dark') {
-          theme = 'dark';
-        } else if (themeSetting) {
-          try {
-            var parsed = JSON.parse(themeSetting);
-            if (parsed.accent === 'purple') {
-              accent = '#855cd6';
-            } else if (parsed.accent === 'blue') {
-              accent = '#4c97ff';
-            }
-            if (parsed.gui === 'dark' || parsed.gui === 'light') {
-              theme = parsed.gui;
-            }
-          } catch (e) {
-            // ignore
-          }
-        }
-
-        if (!theme) {
-          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-
-        var splash = document.querySelector('.spash-waiting-for-js');
-        splash.setAttribute('data-theme', theme);
-        if (theme !== 'dark') {
-          
-            splash.style.color = accent;
-          
-        }
-        splash.hidden = false;
-
-        var splashErrorTitle = document.querySelector('.splash-error-title');
-        var splashError = document.querySelector('.splash-errors');
-        var splashReset = document.querySelector('.splash-reset');
-
-        var totalErrors = 0;
-        window.onerror = function (event, source, line, col, err) {
-          if (++totalErrors > 5) return; // dont bother logging more
-          splashErrorTitle.hidden = splashError.hidden = splashReset.hidden = false;
-          var el = document.createElement('div');
-          el.textContent = 'Error (splash) in ' + source + ' (' + line + ':' + col + '): ' + err;
-          splashError.appendChild(el);
-        };
-
-        splashReset.onclick = function () {
-          splashReset.disabled = true;
-          function hardRefresh() {
-            var search = location.search.replace(/[?&]nocache=\d+/, '');
-            location.replace(location.pathname + search + (search ? '&' : '?') + 'nocache=' + Math.floor(Math.random() * 100000));
-          }
-          if ('serviceWorker' in navigator) {
-            setTimeout(hardRefresh, 5000);
-            navigator.serviceWorker.getRegistration("/")
-              .then(function(registration) {
-                if (registration) {
-                  return registration.unregister();
-                }
-              })
-              .then(hardRefresh)
-              .catch(hardRefresh);
-          } else {
-            hardRefresh();
-          }
-        };
-
-        window.SplashEnd = () => {
-          splash.hidden = true;
-          window.onerror = null;
-        };
-      })();</script><div id="app"></div><script src="/js/pentapod/vendors~addon-settings~credits~editor~embed~fullscreen~player.bc605cde76b23fb97dc9.js"></script><script src="/js/pentapod/vendors~editor~embed~fullscreen~player.4dfcd456a5a5abab0a7e.js"></script><script src="/js/pentapod/addon-settings~addons~editor~fullscreen~player.679436dd87ca8a66d35e.js"></script><script src="/js/pentapod/addon-settings~editor~embed~fullscreen~player.cf38657d2794b26fc6c8.js"></script><script src="/js/pentapod/player.45e3ada68c62e8e94579.js"></script></body></html>
+<!DOCTYPE html><html class="dark mobile" lang="en"><head><meta name="theme-color" content="#23293c"><title></title><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="description" content="Learn coding at your own pace by exploring labs."><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><link rel="stylesheet" href="assets/bundle/vendor.bundle.css"><link rel="icon" href="assets/favicon.ico"><link rel="stylesheet" href="assets/bundle/app.css"><script defer="defer" src="assets/bundle/vendor.bundle.js" type="text/javascript"></script><script defer="defer" src="assets/bundle/app.bundle.js" type="text/javascript"></script><style>.se-bg-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  background: inherit;
+}
+.se-loading .se-bg-overlay {
+  opacity: 1;
+}
+.se-bg-overlay::before {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 180px;
+}
+</style><style>.se-bg-overlay::before {
+  background-image: url(assets/img/logo-mark.svg);
+}</style></head></html><body class="se-loading"><div class="sp-flex sp-flex-column" id="appContainer"><div class="warning-label sp-flex-item-none" id="warningBanner"><span class="i18n-de se-text-overflow">Start des lokalen Servers fehlgeschlagen. Einige Funktionen sind nicht verfügbar.</span><span class="i18n-en se-text-overflow">Local server start failed. Some features are unavailable.</span><span class="i18n-es se-text-overflow">Error al iniciar el servidor local. Algunas funciones no están disponibles.</span><span class="i18n-fr se-text-overflow">Le démarrage du serveur local a échoué. Certaines fonctionnalités ne sont pas disponibles.</span><span class="i18n-id se-text-overflow">Mulai server lokal gagal. Beberapa fitur tidak tersedia.</span><span class="i18n-ja se-text-overflow">ローカルサーバーの起動に失敗しました。一部の機能は利用できません。</span><span class="i18n-ko se-text-overflow">로컬 서버 시작에 실패했습니다. 일부 기능을 사용할 수 없습니다.</span><span class="i18n-ru se-text-overflow">Не удалось запустить локальный сервер. Некоторые функции недоступны.</span><span class="i18n-pt se-text-overflow">Falha ao iniciar o servidor local. Alguns recursos estão indisponíveis.</span><span class="i18n-zh se-text-overflow">本地服务器启动失败。某些功能不可用。</span><span class="i18n-zhtw se-text-overflow">本地服務器啟動失敗。某些功能不可用。</span></div><div class="warning-label sp-flex-item-none" id="warningBanner2"><span class="i18n-de se-text-overflow">Der Start ist aufgrund einer Firewall fehlgeschlagen. Einige Funktionen sind nicht verfügbar.</span><span class="i18n-en se-text-overflow">Startup failed due to firewall. Some features are unavailable.</span><span class="i18n-es se-text-overflow">El inicio de la aplicación falló debido al firewall. Algunas funciones no están disponibles.</span><span class="i18n-fr se-text-overflow">Le démarrage a échoué à cause du pare-feu. Certaines fonctionnalités ne sont pas disponibles.</span><span class="i18n-id se-text-overflow">Startup gagal karena firewall. Beberapa fitur tidak tersedia.</span><span class="i18n-ja se-text-overflow">ファイアウォールが原因で起動に失敗しました。一部の機能は利用できません。</span><span class="i18n-ko se-text-overflow">방화벽으로 인해 앱 시작에 실패했습니다. 일부 기능을 사용할 수 없습니다.</span><span class="i18n-ru se-text-overflow">Ошибка запуска из-за брандмауэра. Некоторые функции недоступны.</span><span class="i18n-pt se-text-overflow">Falha na inicialização devido ao firewall. Alguns recursos estão indisponíveis.</span><span class="i18n-zh se-text-overflow">由于防火墙，应用程序启动失败。某些功能不可用。</span><span class="i18n-zhtw se-text-overflow">由於防火牆，應用程式啟動失敗。某些功能不可用。</span></div></div><div class="se-bg-overlay"></div></body>
